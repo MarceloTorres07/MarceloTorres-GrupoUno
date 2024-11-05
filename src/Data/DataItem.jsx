@@ -26,7 +26,7 @@ export const products = [
         despcription: 'Silla Gamer Profesional GX2000 con Reposapiés-Negro Vidita',
         stock: 7,
         img: 'https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCL/114328608_01/w=1500,h=1500,fit=pad',
-        categoria: 'mubles'
+        categoria: 'muebles'
 
     },
     {
@@ -84,7 +84,7 @@ export const products = [
         img: 'https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCL/124014798_01/w=1500,h=1500,fit=pad',
         categoria: 'muebles'
     },
-]
+];
 
 export const getProducts = () =>{
     return new Promise((res) =>{
@@ -92,7 +92,7 @@ export const getProducts = () =>{
             res(products);
         }, 2000);
     })
-}
+};
 
 export const getProductById = (id) => {
     return new Promise((res) => {
@@ -105,7 +105,7 @@ export const getProductById = (id) => {
 
 export const getProductByCategoria = (categoria) => {
     return new Promise((res) => {
-        const productosFiltrados = products.filter((product) => product.categoria === categoria);
+        const productosFiltrados = products.filter((productos) => productos.categoria === categoria);
         setTimeout(() => {
             res(productosFiltrados);
         }, 2000);

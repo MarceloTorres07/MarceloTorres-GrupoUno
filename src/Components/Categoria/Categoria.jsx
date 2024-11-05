@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getProductByCategoria } from "../../Data/DataItem.jsx";
-import ItemList from "../ItemList/ItemList";
+import ItemList from "../ItemList/ItemList.jsx";
 import Loading from "../Loading/Loading.jsx";
 
 export default function ProductsCategory(){
@@ -27,7 +27,7 @@ export default function ProductsCategory(){
                 </div>
             ):(
 
-                <ItemList products={products}/>
+                <ItemList productos={products}/>
             )}
         </div>
     )
