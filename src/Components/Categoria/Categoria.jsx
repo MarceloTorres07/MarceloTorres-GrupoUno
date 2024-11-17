@@ -1,34 +1,59 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { getProductByCategoria } from "../../Data/DataItem.jsx";
+import React, { useState, useEffect } from "react";
 import ItemList from "../ItemList/ItemList.jsx";
+import { getProducts, filterProductsByCategory } from "../../Data/DataItem.jsx";
 import Loading from "../Loading/Loading.jsx";
 
-export default function ProductsCategory(){
+const ProductsCategory = () => {
+    const [filteredProducts, setFilteredProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [selectedCategory, setSelectedCategory] = useState('all');
 
-    const [products, setProducts] = useState([]);
-    const {categoryId} = useParams();
-
-    useEffect (() => {
+    useEffect(() => {
         setLoading(true);
-        getProductByCategoria(categoryId)
-            .then((data) => setProducts(data))
-            .catch((err) => console.log(err))
-            .finally(() => setLoading(false));
-    }, [categoryId]);
+        getProducts()
+            .then((data) => {
+                if (selectedCategory === 'all') {
+                    setFilteredProducts(data);
+                } else {
+                    setFilteredProducts(filterProductsByCategory(selectedCategory));
+                }
+                setLoading(false);
+            })
+            .catch((err) => {
+                console.error("Error al obtener los productos:", err);
+                setLoading(false); // Manejo de errores
+            });
+    }, [selectedCategory]);
 
+    const handleCategoryChange = (category) => {
+        setSelectedCategory(category);
+    };
 
-    return(
+    return (
         <div className="container mx-auto max-w-[1170px]">
-            {loading ?(
-                <div>
-                    <Loading />
-                </div>
-            ):(
-
-                <ItemList productos={products}/>
-            )}
+            <div className="flex justify-center space-x-4 my-4">
+                <button
+                    onClick={() => handleCategoryChange('perifericos')}
+                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+                >
+                    Periféricos
+                </button>
+                <button
+                    onClick={() => handleCategoryChange('muebles')}
+                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+                >
+                    Muebles
+                </button>
+                <button
+                    onClick={() => handleCategoryChange('all')}
+                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+                >
+                    Todos
+                </button>
+            </div>
+            <ItemList products={filteredProducts} loading={loading} />
         </div>
-    )
+    );
 };
+
+export default ProductsCategory;

@@ -13,9 +13,9 @@ export const products = [
         id: 2,
         name: 'Escritorio',
         price: 105000,
-        despcription: 'Escritorio gamer Tetris negro/rojo Home Mobili',
+        despcription: 'Escritorio gamer inspire negro',
         stock: 20,
-        img: 'https://www.easy.cl/_next/image?url=https%3A%2F%2Feasycl.vteximg.com.br%2Farquivos%2Fids%2F1197682%2F1315848-0000-001.jpg%3Fv%3D638659463684470000&w=640&q=75',
+        img: 'https://rimage.ripley.cl/home.ripley/Attachment/MKP/629/MPM00007523418/full_image-1.jpg',
         categoria: 'muebles'
 
     },
@@ -86,13 +86,8 @@ export const products = [
     },
 ];
 
-export const getProducts = () =>{
-    return new Promise((res) =>{
-        setTimeout(() =>{
-            res(products);
-        }, 2000);
-    })
-};
+
+
 
 export const getProductById = (id) => {
     return new Promise((res) => {
@@ -103,11 +98,14 @@ export const getProductById = (id) => {
     });
 };
 
-export const getProductByCategoria = (categoria) => {
-    return new Promise((res) => {
-        const productosFiltrados = products.filter((productos) => productos.categoria === categoria);
+export const getProducts = () => {
+    return new Promise((resolve) => {
         setTimeout(() => {
-            res(productosFiltrados);
-        }, 2000);
+            resolve(products);
+        }, 1000);
     });
+};
+
+export const filterProductsByCategory = (categoria) => {
+    return products.filter(product => product.categoria === categoria);
 };

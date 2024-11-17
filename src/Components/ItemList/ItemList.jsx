@@ -1,33 +1,25 @@
-import Item from "../Item/item.jsx"
-import { getProducts } from "../../Data/DataItem.jsx"
-import { useEffect, useState } from "react"
+import React from 'react';
+import Item from "../Item/item.jsx";
 import Loading from "../Loading/Loading.jsx";
 
-export default function ItemList(){
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect (() => {
-        getProducts().then((data) =>{
-            setProducts(data);
-            setLoading(false)
-        });
-    }, []);
-
-    return(
+const ItemList = ({ products, loading }) => {
+    return (
         <>
-            {loading ?(
+            {loading ? (
                 <div>
                     <Loading />
                 </div>
-            ):(
+            ) : (
                 <div className="flex flex-wrap">
-                    {products.map((prod) =>(
-                        <Item {...prod} key={prod.id}/>
+                    {products.map((prod) => (
+                        <Item {...prod} key={prod.id} />
                     ))}
                 </div>
             )}
-
         </>
-    )
-}
+    );
+};
+
+export default ItemList;
+
+
